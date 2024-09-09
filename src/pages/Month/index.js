@@ -1,5 +1,6 @@
 import { NavBar, DatePicker } from 'antd-mobile'
 import './index.scss'
+import DailyBill from './components/DailyBill'
 
 const Month = () => {
   return (
@@ -40,6 +41,8 @@ const Month = () => {
             max={new Date()}
           />
         </div>
+        {/* 单日列表统计 */}
+        <DailyBill />
       </div>
     </div >
   )
