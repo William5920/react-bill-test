@@ -1,9 +1,11 @@
 import { NavBar, DatePicker } from 'antd-mobile'
 import './index.scss'
 import DailyBill from './components/DailyBill'
-import {useState} from 'react'
+import {useState, useMemo} from 'react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
+import {useSelector} from 'react-redux'
+import _ from 'lodash'
 
 const Month = () => {
   // 日期组件显隐
@@ -18,6 +20,15 @@ const Month = () => {
     setCurrentDate(formatDate)
     setDateVisible(false)
   }
+  // 按月分组的数据
+  const billList = useSelector(state => state.bill.billList)
+  // useMemo是react中的固定hook，类似于vue中的computed
+  const monthGroup = useMemo(() => {
+    // return出去计算后的值
+    return _.groupBy(billList, item => dayjs(item.date).format('YYYY-MM'))
+  }, [billList])
+  console.log('monthGroup', monthGroup)
+
   return (
     <div className="monthlyBill">
       <NavBar className="nav" backIcon={false}>
