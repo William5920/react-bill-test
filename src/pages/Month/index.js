@@ -3,11 +3,21 @@ import './index.scss'
 import DailyBill from './components/DailyBill'
 import {useState} from 'react'
 import classNames from 'classnames'
+import dayjs from 'dayjs'
 
 const Month = () => {
   // 日期组件显隐
   const [dateVisible, setDateVisible] = useState(false)
-
+  // 显示日期
+  const [currentDate, setCurrentDate] = useState(() => {
+    return dayjs(new Date()).format('YYYY-MM')
+  })
+  // 日期组件确认
+  const onDateConfirm = (date) => {
+    let formatDate = dayjs(date).format('YYYY-MM')
+    setCurrentDate(formatDate)
+    setDateVisible(false)
+  }
   return (
     <div className="monthlyBill">
       <NavBar className="nav" backIcon={false}>
@@ -18,7 +28,7 @@ const Month = () => {
           {/* 时间切换区域 */}
           <div className="date" onClick={() => setDateVisible(true)}>
             <span className="text">
-              2023 | 3月账单
+              {currentDate}月账单
             </span>
             <span className={classNames('arrow', dateVisible && 'expand')}></span>
           </div>
@@ -46,7 +56,7 @@ const Month = () => {
             max={new Date()}
             onCancel={() => setDateVisible(false)}
             onClose={() => setDateVisible(false)}
-            onConfirm={() => setDateVisible(false)}
+            onConfirm={onDateConfirm}
           />
         </div>
         {/* 单日列表统计 */}
