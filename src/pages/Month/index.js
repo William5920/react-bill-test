@@ -44,6 +44,18 @@ const Month = () => {
     }
   }, [currentMonthList])
 
+  // 当前月按照日分组的数据
+  const dayGroup = useMemo(() => {
+    const groupData = _.groupBy(currentMonthList, item => dayjs(item.date).format('YYYY-MM-DD'))
+    const keys = Object.keys(groupData)
+      // return出去计算后的值
+      return {
+      groupData,
+      keys
+      }
+  }, [currentMonthList])
+  console.log('dayGroup', dayGroup)
+
   /****************************方法**********************/
   // 日期组件确认
   const onDateConfirm = (date) => {
@@ -104,7 +116,10 @@ const Month = () => {
           />
         </div>
         {/* 单日列表统计 */}
-        <DailyBill />
+        {dayGroup.keys.map(key => {
+          return <DailyBill key={key} date={key} billList={dayGroup.groupData[key]} />
+        })}
+        
       </div>
     </div >
   )
