@@ -1,7 +1,7 @@
 import { NavBar, DatePicker } from 'antd-mobile'
 import './index.scss'
 import DailyBill from './components/DailyBill'
-import {useState, useMemo} from 'react'
+import {useState, useMemo, useEffect} from 'react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import {useSelector} from 'react-redux'
@@ -52,6 +52,14 @@ const Month = () => {
     setCurrentDate(formatDate)
     setDateVisible(false)
   }
+  /****************************hook**********************/
+  // 初始化时把当前月的统计数据显示出来
+  useEffect(() => {
+    const nowDate = dayjs().format('YYYY-MM')
+    if (monthGroup[nowDate]) {
+      setCurrentMonthList(monthGroup[nowDate])
+    }
+  }, [monthGroup])
 
 
   return (
