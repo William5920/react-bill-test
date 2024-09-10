@@ -8,18 +8,15 @@ import {useSelector} from 'react-redux'
 import _ from 'lodash'
 
 const Month = () => {
+  /****************************数据**********************/
   // 日期组件显隐
   const [dateVisible, setDateVisible] = useState(false)
+
   // 显示日期
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs(new Date()).format('YYYY-MM')
   })
-  // 日期组件确认
-  const onDateConfirm = (date) => {
-    let formatDate = dayjs(date).format('YYYY-MM')
-    setCurrentDate(formatDate)
-    setDateVisible(false)
-  }
+
   // 按月分组的数据
   const billList = useSelector(state => state.bill.billList)
   // useMemo是react中的固定hook，类似于vue中的computed
@@ -28,6 +25,34 @@ const Month = () => {
     return _.groupBy(billList, item => dayjs(item.date).format('YYYY-MM'))
   }, [billList])
   console.log('monthGroup', monthGroup)
+
+  // 当前月的数据
+  const [currentMonthList, setCurrentMonthList] = useState([])
+  // 当前月的统计数据
+  const monthResult = useMemo(() => {
+    const pay = currentMonthList
+    .filter(item => item.type === 'pay')
+    .reduce((prev, curr) => prev + curr.money, 0)
+    const income = currentMonthList
+    .filter(item => item.type === 'income')
+    .reduce((prev, curr) => prev + curr.money, 0)
+
+    return {
+      pay,
+      income,
+      total: pay + income
+    }
+  }, [currentMonthList])
+
+  /****************************方法**********************/
+  // 日期组件确认
+  const onDateConfirm = (date) => {
+    let formatDate = dayjs(date).format('YYYY-MM')
+    setCurrentMonthList(monthGroup[formatDate] || [])
+    setCurrentDate(formatDate)
+    setDateVisible(false)
+  }
+
 
   return (
     <div className="monthlyBill">
@@ -46,15 +71,15 @@ const Month = () => {
           {/* 统计区域 */}
           <div className='twoLineOverview'>
             <div className="item">
-              <span className="money">{100}</span>
+              <span className="money">{monthResult.pay.toFixed(2)}</span>
               <span className="type">支出</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{monthResult.income.toFixed(2)}</span>
               <span className="type">收入</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{monthResult.total.toFixed(2)}</span>
               <span className="type">结余</span>
             </div>
           </div>
