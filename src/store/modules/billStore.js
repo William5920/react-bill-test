@@ -9,12 +9,16 @@ const billStore = createSlice({
   reducers: {
     setBillList(state, action) {
       state.billList = action.payload
+    },
+    // 同步添加账单方法
+    addBill(state, action) {
+      state.billList.push(action.payload)
     }
   }
 })
 
 // 解构actionCreater函数
-const {setBillList} = billStore.actions
+const {setBillList, addBill} = billStore.actions
 // 编写异步action
 const getBillList = () => {
   return async (dispatch) => {
@@ -26,7 +30,17 @@ const getBillList = () => {
   }
 }
 
-export {getBillList}
+const addBillList = (data) => {
+  return async (dispatch) => {
+    // 编写异步请求
+    const res = await axios.post('http://localhost:8888/ka', data)
+    console.log('新增账单数据响应', res)
+    // 触发同步reducer
+    dispatch(addBill(res.data))
+  }
+}
+
+export {getBillList, addBillList}
 // 导出reducer
 const reducer = billStore.reducer
 export default reducer
