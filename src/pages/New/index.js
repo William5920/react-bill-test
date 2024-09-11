@@ -39,6 +39,7 @@ const New = () => {
     }
     console.log(data)
     dispatch(addBillList(data))
+    navigate('/month')
   }
 
   return (

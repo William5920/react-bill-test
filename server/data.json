@@ -132,6 +132,41 @@
       "money": 10000,
       "date": "2024-09-09T16:00:00.000Z",
       "useFor": "salary"
+    },
+    {
+      "id": "6695",
+      "type": "pay",
+      "money": -20,
+      "date": "2024-09-11T07:24:59.960Z",
+      "useFor": "drinks"
+    },
+    {
+      "id": "a083",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-09-11T07:27:12.595Z",
+      "useFor": ""
+    },
+    {
+      "id": "b37f",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-09-11T07:27:15.887Z",
+      "useFor": ""
+    },
+    {
+      "id": "1876",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-09-11T07:27:15.397Z",
+      "useFor": ""
+    },
+    {
+      "id": "1b8f",
+      "type": "pay",
+      "money": -80,
+      "date": "2024-09-08T16:00:00.000Z",
+      "useFor": "bodybuilding"
     }
   ]
 }
