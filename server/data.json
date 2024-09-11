@@ -104,6 +104,34 @@
       "money": 2000,
       "date": "2024-09-11T06:55:59.986Z",
       "useFor": "bonus"
+    },
+    {
+      "id": "9538",
+      "type": "pay",
+      "money": -20,
+      "date": "2024-09-11T07:12:54.483Z",
+      "useFor": "food"
+    },
+    {
+      "id": "7609",
+      "type": "pay",
+      "money": -50,
+      "date": "2024-09-11T07:12:54.483Z",
+      "useFor": "taxi"
+    },
+    {
+      "id": "c882",
+      "type": "income",
+      "money": 200,
+      "date": "2024-09-11T07:12:54.483Z",
+      "useFor": "bonus"
+    },
+    {
+      "id": "d52e",
+      "type": "income",
+      "money": 10000,
+      "date": "2024-09-09T16:00:00.000Z",
+      "useFor": "salary"
     }
   ]
 }
